@@ -35,7 +35,7 @@ router.get('/:idPais' , async (req,res) => {
         res.json(country);
 });
 
-module.export= router;
+module.exports= router;
 
 
 
