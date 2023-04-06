@@ -4,7 +4,7 @@ const {Country, Activity} = require('../db.js');
 const router = Router();
 
 router.get('/', async (req, res) => {
-    const countries = await Country.finAll()
+    const countries = await Country.findAll()
     if(req.query.name) {
         const name = req.query.name;
         const countriesFilter = countries.filter((country) => {
