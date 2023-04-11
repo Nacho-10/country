@@ -190,7 +190,7 @@ Se debe desarrollar una aplicación utilizando **React** y **Redux** que conteng
 **📍 HOME PAGE |** la página principal de tu SPA debe contener:
 
 -  SearchBar: un input de búsqueda para encontrar países por nombre.
--  Sector en el que se vea un listado de cards con los países. Al iniciar deberá cargar los primeros resultados obtenidos desde la ruta **`GET /countries`** y deberá mostrar su:
+-  Sector en el que se vea un listado de cards con los   países. Al iniciar deberá cargar los primeros resultados obtenidos desde la ruta **`GET /countries`** y deberá mostrar su:
    -  Imagen de la bandera.
    -  Nombre.
    -  Continente.
