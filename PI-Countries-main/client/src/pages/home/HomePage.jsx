@@ -1,21 +1,20 @@
-import './homePage.css';
+import "./homePage.css";
 
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from 'react-router-dom';
-import { Navbar } from './../../components/Navbar';
-import { getActivities } from './../../store/slices/activities/thunks';
+import { Link } from "react-router-dom";
+import { NavBar } from "./../../components/NavBar";
+import { getActivities } from "./../../store/slices/activities/thunks";
 
 export const HomePage = () => {
   const [countries, setCountries] = useState([]);
   const [activities, setActivities] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const allCountries = useSelector((state) => state.countries.countries);
   const allActivities = useSelector((state) => state.activities.activities);
-
 
   const dispatch = useDispatch();
 
@@ -30,8 +29,8 @@ export const HomePage = () => {
       return country.name.toLowerCase().includes(search.toLowerCase());
     });
     if (currentPage + 10 < filtered.length) {
-      console.log('filtered', filtered.length);
-      console.log('currentPage', currentPage);
+      console.log("filtered", filtered.length);
+      console.log("currentPage", currentPage);
       setCurrentPage(currentPage + 10);
     }
   };
@@ -92,16 +91,16 @@ export const HomePage = () => {
   const handleSort = (event) => {
     const value = event.target.value;
     switch (value) {
-      case 'ascName':
+      case "ascName":
         sortAscByName();
         break;
-      case 'descName':
+      case "descName":
         sortDescByName();
         break;
-      case 'ascPop':
+      case "ascPop":
         sortAscByPop();
         break;
-      case 'descPop':
+      case "descPop":
         sortDescByPop();
         break;
 
@@ -115,34 +114,46 @@ export const HomePage = () => {
     const value = event.target.value;
     let filtered;
     switch (value) {
-      case 'Americas':
+      case "Americas":
         setCurrentPage(0);
-        filtered = allCountries.filter((country) => country.continent === 'Americas');
+        filtered = allCountries.filter(
+          (country) => country.continent === "Americas"
+        );
         setCountries(filtered);
         break;
-      case 'Europe':
+      case "Europe":
         setCurrentPage(0);
-        filtered = allCountries.filter((country) => country.continent === 'Europe');
+        filtered = allCountries.filter(
+          (country) => country.continent === "Europe"
+        );
         setCountries(filtered);
         break;
-      case 'Asia':
+      case "Asia":
         setCurrentPage(0);
-        filtered = allCountries.filter((country) => country.continent === 'Asia');
+        filtered = allCountries.filter(
+          (country) => country.continent === "Asia"
+        );
         setCountries(filtered);
         break;
-      case 'Africa':
+      case "Africa":
         setCurrentPage(0);
-        filtered = allCountries.filter((country) => country.continent === 'Africa');
+        filtered = allCountries.filter(
+          (country) => country.continent === "Africa"
+        );
         setCountries(filtered);
         break;
-      case 'Oceania':
+      case "Oceania":
         setCurrentPage(0);
-        filtered = allCountries.filter((country) => country.continent === 'Oceania');
+        filtered = allCountries.filter(
+          (country) => country.continent === "Oceania"
+        );
         setCountries(filtered);
         break;
-      case 'Antarctic':
+      case "Antarctic":
         setCurrentPage(0);
-        filtered = allCountries.filter((country) => country.continent === 'Antarctic');
+        filtered = allCountries.filter(
+          (country) => country.continent === "Antarctic"
+        );
         setCountries(filtered);
         break;
 
@@ -154,13 +165,17 @@ export const HomePage = () => {
 
   const handleFilterActivity = (event) => {
     const value = event.target.value;
-    if (value === 'none') {
+    if (value === "none") {
       return setCountries(allCountries);
     }
 
-    const activity = activities.find((activity) => activity.id === Number(value));
+    const activity = activities.find(
+      (activity) => activity.id === Number(value)
+    );
     const filtered = allCountries.filter((country) => {
-      return activity.countries.find((countryActivity) => countryActivity.id === country.id);
+      return activity.countries.find(
+        (countryActivity) => countryActivity.id === country.id
+      );
     });
     setCountries(filtered);
     setCurrentPage(0);
@@ -173,27 +188,33 @@ export const HomePage = () => {
   useEffect(() => {
     dispatch(getActivities());
     setActivities(allActivities);
-  }, [allActivities, dispatch]);
+  }, [allActivities, dispatch]); 
 
   return (
     <div>
-      <Navbar />
-      <input type='text' placeholder='Buscar pais' value={search} onChange={onSearchChange} />
+      <NavBar />
+      <input
+        className="search"
+        type="text"
+        placeholder="Buscar pais"
+        value={search}
+        onChange={onSearchChange}
+      />
 
       <label>Filtrar por Continente</label>
       <select onChange={handleFilterContinent}>
-        <option value='all'>Todos</option>
-        <option value='Americas'>America</option>
-        <option value='Europe'>Europa</option>
-        <option value='Asia'>Asia</option>
-        <option value='Africa'>Africa</option>
-        <option value='Oceania'>Oceania</option>
-        <option value='Antarctic'>Antarctica</option>
+        <option value="all">Todos</option>
+        <option value="Americas">America</option>
+        <option value="Europe">Europa</option>
+        <option value="Asia">Asia</option>
+        <option value="Africa">Africa</option>
+        <option value="Oceania">Oceania</option>
+        <option value="Antarctic">Antarctica</option>
       </select>
 
       <label>Filtrar por actividad turistica</label>
       <select onChange={handleFilterActivity}>
-        <option value='none'>Sin filtrar</option>
+        <option value="none">Sin filtrar</option>
         {activities.map((activity) => (
           <option key={activity.id} value={activity.id}>
             {activity.name}
@@ -203,15 +224,19 @@ export const HomePage = () => {
 
       <label>Ordenamiento</label>
       <select onChange={handleSort}>
-        <option value=''>Sin orden</option>
-        <option value='ascName'>Ordenar nombre ascendentemente</option>
-        <option value='descName'>Ordenar nombre descendentemente</option>
-        <option value='ascPop'>Ordenar poblacion ascendentemente</option>
-        <option value='descPop'>Ordenar poblacion descendentemente</option>
+        <option value="">Sin orden</option>
+        <option value="ascName">Ordenar nombre ascendentemente</option>
+        <option value="descName">Ordenar nombre descendentemente</option>
+        <option value="ascPop">Ordenar poblacion ascendentemente</option>
+        <option value="descPop">Ordenar poblacion descendentemente</option>
       </select>
-      <div className='countries__container'>
+      <div className="countries__container">
         {filteredCountries().map((country) => (
-          <Link to={`/country/${country.id}`} className='country-card' key={country.id}>
+          <Link
+            to={`/country/${country.id}`}
+            className="country-card"
+            key={country.id}
+          >
             <img src={country.flag} alt={country.name} />
             <h3>{country.name}</h3>
             <p>{country.continent}</p>
@@ -224,4 +249,3 @@ export const HomePage = () => {
     </div>
   );
 };
-

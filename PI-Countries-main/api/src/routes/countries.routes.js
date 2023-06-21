@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         const { Country, Activity } = require('../db.js');
         
         const router = Router();
-        
+         
         router.get('/', async (req, res) => {
           const countries = await Country.findAll();
         
@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
         
         
         
-        module.exports = router; countriesFilter = countries.filter((country) => {
+        countriesFilter = countries.filter((country) => {
             const filterCondition = country.name.toLowerCase().includes(name.toLowerCase());
 
             if(filterCondition) {

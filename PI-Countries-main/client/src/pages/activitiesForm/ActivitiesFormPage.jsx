@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import { NavBar } from '../../components/NavBar'
+import './ActivitiesFormPage.css';
+
 import { useDispatch, useSelector } from 'react-redux';
+
+import { NavBar } from '../../components/NavBar';
 import { addActivity } from '../../store/slices/activities/thunks';
-
-import './activitiesFormPage.css';
-
+//import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 export const ActivitiesFormPage = () => {
   const [name, setName] = useState('');
@@ -118,4 +119,4 @@ export const ActivitiesFormPage = () => {
       </form>
     </div>
   );
-};
+}
